@@ -54,6 +54,34 @@ function buscarMascota(callback) {
     }, 1000);
 }
 
+function actualizarSalud(callback) {
+    let nombre = prompt("Ingrese el nombre de la mascota a actualizar:");
+    let mascota = mascotas.find(m => m.nombre.toLowerCase() === nombre.toLowerCase());
+    if (mascota) {
+        let nuevoEstado = prompt("Ingrese el nuevo estado de salud:");
+        setTimeout(() => {
+            mascota.estadoSalud = nuevoEstado;
+            alert("Estado de salud actualizado exitosamente!");
+            callback();
+        }, 2000);
+    } else {
+        alert("Mascota no encontrada.");
+        callback();
+    }
+}
+
+function eliminarMascota(callback) {
+    let nombre = prompt("Ingrese el nombre de la mascota a eliminar:");
+    let index = mascotas.findIndex(m => m.nombre.toLowerCase() === nombre.toLowerCase());
+    if (index !== -1) {
+        mascotas.splice(index, 1);
+        alert("Mascota eliminada exitosamente!");
+    } else {
+        alert("Mascota no encontrada.");
+    }
+    callback();
+}
+
 function mostrarMenu(){
     let opcion;
     do {
@@ -68,6 +96,17 @@ function mostrarMenu(){
             case "3":
                 buscarMascota(mostrarMenu);
                 return;
+            case "4":
+                actualizarSalud(mostrarMenu);
+                return;
+            case "5":
+                eliminarMascota(mostrarMenu);
+                return;
+            case "6":
+                alert("Saliendo del programa");
+                return;
+            default:
+                alert("Opción no válida, intente de nuevo");
         }
     } while (opcion !== "6");
 }
