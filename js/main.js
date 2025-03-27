@@ -41,18 +41,32 @@ function listarMascotas(callback){
     }, 1000);
 }
 
-
+function buscarMascota(callback) {
+    let nombre = prompt("Ingrese el nombre de la mascota a buscar:");
+    setTimeout(() => {
+        let mascota = mascotas.find(m => m.nombre.toLowerCase() === nombre.toLowerCase());
+        if (mascota) {
+            alert(`Mascota encontrada:\nNombre: ${mascota.nombre}, Especie: ${mascota.especie}, Salud: ${mascota.estadoSalud}`);
+        } else {
+            alert("Mascota no encontrada.");
+        }
+        callback();
+    }, 1000);
+}
 
 function mostrarMenu(){
     let opcion;
     do {
-        opcion = prompt("1. Registrar mascota \n 2. Listar mascotas \n 3. Salir");
+        opcion = prompt("1. Registrar mascota \n 2. Listar mascotas \n 3. Buscar mascota \n 4. Actualizar mascota \n 5. Eliminar mascota \n 6. Salir");
         switch (opcion){
             case "1":
                 registrarMascota(mostrarMenu);
                 return;
             case "2":
                 listarMascotas(mostrarMenu);
+                return;
+            case "3":
+                buscarMascota(mostrarMenu);
                 return;
         }
     } while (opcion !== "6");
